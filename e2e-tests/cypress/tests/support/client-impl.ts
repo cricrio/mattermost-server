@@ -2,16 +2,16 @@
 // See LICENSE.txt for license information.
 
 import Client4 from 'mattermost-redux/client/client4';
+import {Options} from 'mattermost-redux/types/client4';
 
 import clientRequest from '../plugins/client_request';
 
 export class E2EClient extends Client4 {
-    async doFetchWithResponse(url, options) {
-        const {
-            body,
-            headers,
-            method,
-        } = this.getOptions(options);
+    doFetchWithResponse = async (
+        url: string,
+        options: Options,
+    ) => {
+        const {body, headers, method} = this.getOptions(options);
 
         let data;
         if (body) {
@@ -30,6 +30,7 @@ export class E2EClient extends Client4 {
             this.setUserId(response.data.id);
             this.setUserRoles(response.data.roles);
         }
+
         return response;
-    }
+    };
 }
